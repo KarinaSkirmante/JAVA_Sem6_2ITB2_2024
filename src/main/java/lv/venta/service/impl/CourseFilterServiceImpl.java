@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import lv.venta.model.Course;
 import lv.venta.repo.ICourseRepo;
 import lv.venta.repo.IProfessorRepo;
+import lv.venta.repo.IStudentRepo;
 import lv.venta.service.ICourseFilterService;
 
 @Service
@@ -18,6 +19,9 @@ public class CourseFilterServiceImpl implements ICourseFilterService {
 	
 	@Autowired
 	private IProfessorRepo profRepo;
+	
+	@Autowired
+	private IStudentRepo studRepo;
 	
 	@Override
 	public ArrayList<Course> selectCoursesByCP(int cp) throws Exception {
@@ -49,8 +53,17 @@ public class CourseFilterServiceImpl implements ICourseFilterService {
 
 	@Override
 	public ArrayList<Course> selectCoursesByStudentId(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(id <= 0) throw new Exception("Id should be positive");
+		
+		if(!studRepo.existsById(id)) throw new Exception("Student with id (" + id + ") doesn't exist");
+		
+		
+		ArrayList<Course> result = courseRepo.findByGradesStudentIdS(id);
+
+		if(result.isEmpty()) throw new Exception("There is no linkage between this student and course");		
+
+		
+		return result;
 	}
 
 }
