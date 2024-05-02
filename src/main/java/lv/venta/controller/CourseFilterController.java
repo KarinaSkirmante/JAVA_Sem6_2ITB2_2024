@@ -27,8 +27,35 @@ public class CourseFilterController {
 			model.addAttribute("errormsg", e.getMessage());
 			return "error-page";//tiks parādīta error-page.html lapa
 		}
-		
-		
+
+	}
+	
+	@GetMapping("/professor/{id}") //localhost:8080/course/filter/professor/2
+	public String getCourseFilterByProfessorID(@PathVariable("id") int id, 
+			Model model) {
+		try {
+			model.addAttribute("mydata", courseService.selectCoursesByProfessorId(id));
+			model.addAttribute("msg", "Courses filtered by Professor id");
+			return "course-all-show-page";//parādām course-all-show-page.html lapu
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";//tiks parādīta error-page.html lapa
+		}
+
+	}
+	
+	@GetMapping("/student/{id}") //localhost:8080/course/filter/student/2
+	public String getCourseFilterByStudentID(@PathVariable("id") int id, 
+			Model model) {
+		try {
+			model.addAttribute("mydata", courseService.selectCoursesByStudentId(id));
+			model.addAttribute("msg", "Courses filtered by Student id");
+			return "course-all-show-page";//parādām course-all-show-page.html lapu
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";//tiks parādīta error-page.html lapa
+		}
+
 	}
 	
 }
