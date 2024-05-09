@@ -48,7 +48,7 @@ public class Course {
 	
 	//gadījums, ka vienu kursu pasniedz tikai viens professors
 	@OneToOne
-	@JoinColumn(name = "IdP")
+	@JoinColumn(name = "Idpe")
 	private Professor professor;
 	
 	@OneToMany(mappedBy = "course")
