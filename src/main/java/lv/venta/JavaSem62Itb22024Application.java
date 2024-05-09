@@ -28,6 +28,10 @@ public class JavaSem62Itb22024Application {
 	{
 		return new CommandLineRunner() {
 			
+			//TODO
+			//uztaisīt vel 2 kursus
+			//uztaisīt vel 2 pasniezejus
+			//sasatasiīt, lai pārbaudītu manytomany saiti
 			@Override
 			public void run(String... args) throws Exception {
 				Student st1 = new Student("Janis", "Berzins");
@@ -37,13 +41,36 @@ public class JavaSem62Itb22024Application {
 				
 				Professor p1 = new Professor("Karina", "Skirmante", Degree.mg);
 				Professor p2 = new Professor("Vairis", "Caune", Degree.phd);
+				Professor p3 = new Professor("Marcis", "Naktins", Degree.mg);
+				Professor p4 = new Professor("Arturs", "Orbidans", Degree.mg);
 				profRepo.save(p1);
 				profRepo.save(p2);
+				profRepo.save(p3);
+				profRepo.save(p4);
 				
 				Course c1 = new Course("JAVA", 4, p1);
 				Course c2 = new Course("Algoritmu teorija", 2, p2);
+				Course c3 = new Course("Objektoerienta programesana II", 4, p1);
+				Course c4 = new Course("Operatajsistemas", 2, p3, p4);
 				courseRepo.save(c1);
 				courseRepo.save(c2);
+				courseRepo.save(c3);
+				courseRepo.save(c4);
+				
+				p1.addCourse(c1);//Karina pasniedz JAVA
+				p1.addCourse(c3);//Karina pasniedz OOP II
+				profRepo.save(p1);
+				
+				p2.addCourse(c2);//Vairis pasniedz Algoritmu Teo.
+				profRepo.save(p2);
+				
+				p3.addCourse(c4);//Marcis pasniedz OS
+				profRepo.save(p3);
+				
+				p4.addCourse(c4);//Arturs pasniedz OS
+				profRepo.save(p4);
+				
+				
 				
 				Grade gr1 = new Grade(st1, c1, 6);
 				Grade gr2 = new Grade(st1, c2, 9);
